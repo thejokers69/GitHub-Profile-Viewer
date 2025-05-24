@@ -15,7 +15,7 @@ describe('Express Server', () => {
     app.get('/health', (req, res) => {
       res.json({ 
         status: 'OK', 
-        timestamp: expect.any(String),
+        timestamp: new Date().toISOString(),
         githubApiTokenConfigured: false 
       });
     });
@@ -45,7 +45,7 @@ describe('Express Server', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       status: 'OK',
-      timestamp: expect.any(String),
+      timestamp: new Date().toISOString(),
       githubApiTokenConfigured: false
     });
   });
