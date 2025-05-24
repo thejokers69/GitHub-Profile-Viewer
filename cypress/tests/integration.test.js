@@ -26,7 +26,7 @@ describe('Frontend-Backend Integration', () => {
 
   test('Search renders user profile', async () => {
     // Mock DOM
-    const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+    const html = fs.readFileSync(path.join(__dirname, '..', '..', 'index.html'), 'utf8');
     const dom = new JSDOM(html, { runScripts: 'dangerously' });
     const { window } = dom;
     global.document = window.document;

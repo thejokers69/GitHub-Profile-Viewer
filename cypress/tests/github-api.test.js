@@ -1,7 +1,6 @@
-// Assume script.js has a GitHubApiService class
 class GitHubApiService {
     async fetchUser(username) {
-      const response = await fetch(`/api/github/${username}`);
+      const response = await fetch(`http://localhost:3000/api/github/${username}`);
       if (!response.ok) throw new Error('API error');
       return response.json();
     }
@@ -25,7 +24,7 @@ class GitHubApiService {
   
       const data = await apiService.fetchUser('testuser');
       expect(data).toEqual({ login: 'testuser', name: 'Test User' });
-      expect(fetch).toHaveBeenCalledWith('/api/github/testuser');
+      expect(fetch).toHaveBeenCalledWith('http://localhost:3000/api/github/testuser');
     });
   
     test('fetchUser throws error for invalid username', async () => {
