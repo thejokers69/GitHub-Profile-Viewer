@@ -4,9 +4,9 @@ describe('GitHub Profile Viewer E2E', () => {
     });
   
     it('searches and displays a user profile', () => {
-      cy.get('#usernameInput').type('testuser');
+      cy.get('#usernameInput').type('octocat');
       cy.get('#searchBtn').click();
-      cy.get('.profile-card').should('be.visible').and('contain', 'Test User');
+      cy.get('.profile-card').should('be.visible').and('contain', 'The Octocat');
     });
   
     it('handles invalid username', () => {
@@ -25,5 +25,15 @@ describe('GitHub Profile Viewer E2E', () => {
       cy.viewport('iphone-x');
       cy.get('#usernameInput').should('be.visible');
       cy.get('.search-form').should('have.css', 'flex-direction', 'column');
+    });
+  
+    it('mocks a user profile', () => {
+      cy.intercept('GET', '/api/github/*', {
+        statusCode: 200,
+        body: { name: 'Test User', /* ...other fields... */ }
+      });
+      cy.get('#usernameInput').type('testuser');
+      cy.get('#searchBtn').click();
+      cy.get('.profile-card').should('be.visible').and('contain', 'Test User');
     });
   });

@@ -387,3 +387,15 @@ window.GitHubProfileViewer = {
   ProfileService,
   GitHubProfileApp,
 };
+
+async function handleSearch() {
+  const username = document.querySelector('#usernameInput').value;
+  const response = await fetch(`https://api.github.com/users/${username}`);
+  if (!response.ok) {
+    // Show error message
+    document.querySelector('.error').textContent = 'User not found';
+    document.querySelector('.error').style.display = 'block'; // Ensure it's visible
+    return;
+  }
+  // Handle successful response...
+}
