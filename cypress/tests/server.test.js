@@ -1,8 +1,6 @@
 const request = require('supertest');
 const express = require('express');
 const path = require('path');
-const nock = require('nock');
-
 // Mock the fetch function for API tests
 jest.mock('node-fetch');
 
