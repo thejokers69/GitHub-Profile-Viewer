@@ -1,0 +1,32 @@
+{
+  "name": "github-profile-viewer",
+  "version": "1.0.0",
+  "description": "A beautiful GitHub profile viewer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "github",
+    "profile",
+    "viewer",
+    "portfolio"
+  ],
+  "author": "Mohamed",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.0",
+  "dependencies": {
+    "express": "^5.1.0",
+    "node": "^22.16.0",
+    "npm": "^11.4.1"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.8.1",
+    "@eslint/js": "^9.27.0",
+    "eslint": "^9.27.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.1.0"
+  }
+}
