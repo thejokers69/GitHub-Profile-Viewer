@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 const fs = require('fs');
+const fetchMock = require('jest-fetch-mock');
 
 jest.mock('node-fetch');
 
@@ -32,11 +33,8 @@ describe('Frontend-Backend Integration', () => {
     global.document = window.document;
 
     // Mock fetch in frontend
-    global.fetch = require('node-fetch');
-    fetch.mockResolvedValue({
-      ok: true,
-      json: async () => ({ login: 'testuser', name: 'Test User', avatar_url: 'https://example.com/avatar.jpg' })
-    });
+    fetchMock.enableMocks();
+    fetchMock.mockResponseOnce(JSON.stringify({ login: 'testuser', name: 'Test User', avatar_url: 'https://example.com/avatar.jpg' }));
 
     // Simulate search
     const searchInput = document.querySelector('#search-input');

@@ -1,6 +1,7 @@
 const request = require('supertest');
 const express = require('express');
 const path = require('path');
+const nock = require('nock');
 
 // Mock the fetch function for API tests
 jest.mock('node-fetch');
@@ -16,7 +17,7 @@ describe('Express Server', () => {
       res.json({ 
         status: 'OK', 
         timestamp: new Date().toISOString(),
-        githubApiTokenConfigured: false 
+        githubApiTokenConfigured: !!process.env.GITHUB_API_TOKEN 
       });
     });
     app.get('/api/github/:username', async (req, res) => {
@@ -46,7 +47,7 @@ describe('Express Server', () => {
     expect(response.body).toEqual({
       status: 'OK',
       timestamp: new Date().toISOString(),
-      githubApiTokenConfigured: false
+      githubApiTokenConfigured: !!process.env.GITHUB_API_TOKEN
     });
   });
 
