@@ -12,6 +12,14 @@ describe('Frontend-Backend Integration', () => {
   beforeEach(() => {
     app = express();
     app.use(express.static(path.join(__dirname, '..')));
+    app.get('/', (req, res) => res.sendFile(path.join(__dirname, '..', 'index.html')));
+    app.get('/health', (req, res) => {
+      res.json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        githubApiTokenConfigured: false 
+      });
+    });
     app.get('/api/github/:username', async (req, res) => {
       const fetch = require('node-fetch');
       fetch.mockResolvedValue({
@@ -51,4 +59,12 @@ describe('Frontend-Backend Integration', () => {
     expect(profileCard).toBeTruthy();
     expect(profileCard.textContent).toContain('Test User');
   });
+
+  test('GET / serves index.html', async () => {
+    const response = await request(app).get('/');
+    expect(response.status).toBe(200);
+    expect(response.text).toContain('GitHub Profile Viewer');
+  });
+
+  // Add more tests as needed
 });
