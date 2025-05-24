@@ -15,10 +15,13 @@ app.get('/', (req, res) => {
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-    res.json({ status: 'OK', timestamp: new Date().toISOString(),
-        GITHUB_TOKEN: GITHUB_TOKEN
-     });
+    res.json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        githubApiTokenConfigured: !!process.env.GITHUB_API_TOKEN
+    });
 });
+
 app.get('/api/github/user/:username', async (req, res) => {
     try {
         const response = await fetch(`https://api.github.com/users/${req.params.username}`, {

@@ -92,6 +92,12 @@ class GitHubApiService {
     const repos = await this.httpClient.get(`${this.baseUrl}${username}/repos?sort=updated&per_page=${limit}`);
     return repos;
   }
+
+  async fetchUser(username) {
+    const response = await fetch(`http://localhost:3000/api/github/${username}`);
+    if (!response.ok) throw new Error('API error');
+    return response.json();
+  }
 }
 
 // O - Open/Closed Principle

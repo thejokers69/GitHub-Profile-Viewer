@@ -1,4 +1,5 @@
 .
+├── cypress.config.js
 ├── eslint.config.mjs
 ├── index.html
 ├── package.json
@@ -8,6 +9,7 @@
 ├── README.md
 ├── script.js
 ├── server.js
-└── styles.css
+├── styles.css
+└── vite.config.js
 
-1 directory, 10 files
+1 directory, 12 files
