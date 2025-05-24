@@ -3,6 +3,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 // Serve static files
 app.use(express.static(path.join(__dirname)));
@@ -14,7 +15,22 @@ app.get('/', (req, res) => {
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-    res.json({ status: 'OK', timestamp: new Date().toISOString() });
+    res.json({ status: 'OK', timestamp: new Date().toISOString(),
+        GITHUB_TOKEN: GITHUB_TOKEN
+     });
+});
+app.get('/api/github/user/:username', async (req, res) => {
+    try {
+        const response = await fetch(`https://api.github.com/users/${req.params.username}`, {
+            headers: {
+                'Authorization': `Bearer ${GITHUB_TOKEN}`
+            }
+        });
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch GitHub user data', details: error.message });
+    }
 });
 
 app.listen(PORT, () => {
