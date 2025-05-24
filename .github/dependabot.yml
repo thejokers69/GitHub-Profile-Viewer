@@ -1,0 +1,42 @@
+version: 2
+updates:
+  # Check for npm/pnpm package updates (for package.json)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "pnpm"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    ignore:
+      - dependency-name: "node"
+        versions: [">=23.x"] # Avoid breaking changes from Node.js 23+
+      - dependency-name: "npm"
+        versions: [">=12.x"] # Avoid breaking changes from npm 12+
+    reviewers:
+      - "your-github-username" # Replace with your GitHub username
+
+  # Check for GitHub Actions updates (for test.yml)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 3
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
